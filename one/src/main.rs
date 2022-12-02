@@ -9,15 +9,12 @@ fn main() {
 }
 
 fn group_calories(contents: &String) -> Vec<i32> {
-    let mut count_list = Vec::new();
-    for group in contents.rsplitn(1000, "\n\n") {
-        let count: i32 = group
-            .split("\n")
-            .map(|l| l.parse::<i32>().unwrap_or(0))
-            .sum();
-        count_list.push(count);
-    }
-    count_list
+    let result = contents
+        .split("\n\n")
+        .map(|l| l.split("\n").map(|s| s.parse::<i32>().unwrap_or(0)).sum())
+        .collect();
+
+    result
 }
 
 fn get_highest_elf_calories(contents: &String) -> i32 {
